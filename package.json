@@ -13,6 +13,17 @@
     "pug": "*",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
-    "nodemailer": "*"
+    "nodemailer": "*",
+      "mongodb" : "*",
+      "mongoose" : "*",
+      "connect-flash" : "*",
+      "express-validator" : "*",
+      "express-session":"*",
+      "express-messages":"*",
+      "passport":"*",
+      "passport-local":"*",
+      "passport-http":"*",
+      "multer":"*"
+      
   }
 }
