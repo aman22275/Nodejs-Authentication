@@ -1,0 +1,19 @@
+include layout
+
+block layout
+    h1 Sign In
+  form(method='post',action='/users/login')
+  .form-group
+    label(for='exampleInputEmail1') Name
+    input#exampleInputEmail1.form-control(name='username',type='text', placeholder='Username')
+  .form-group
+    label(for='exampleInputEmail1') Email 
+    input#exampleInputEmail1.form-control(name='password',type='password', placeholder='Password')
+    
+    
+ 
+  .checkbox
+    label
+      input(type='checkbox')
+      |  Remember Me
+  button.btn.btn-default(type='submit', name='login') Submit
