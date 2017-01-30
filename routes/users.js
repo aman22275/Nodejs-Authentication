@@ -16,7 +16,7 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
-router.get('/users/register', function(req,res,next){
+router.post('/register', function(req,res,next){
 
     //Form Values 
     var name = req.body.name;
@@ -24,28 +24,63 @@ router.get('/users/register', function(req,res,next){
     var username = req.body.username;
     var password = req.body.password;
     var repassword = req.body.repassword;
-    
-    
-    
-});
 
 //Check for Image feild
-if(req.files.image){
+if(req.body.profileimage){
     console.log('Uploading file....');
     
     //File Info
-    var profileImageOriginalName = req.files.image.originalname;
+    var profileImageOriginalName = req.files.profileimage.originalname;
     
-    var profileImageName = req.files.image.name;
-    var profileImageMime = req.files.image.mimetype;
-    var profileImagePath = req.files.image.path;
-    var profileImageExt  = req.files.image.extension;
-    var profileImageSize = req.files.image.size;
+    var profileImageName = req.files.profileimage.name;
+    var profileImageMime = req.files.profileimage.mimetype;
+    var profileImagePath = req.files.profileimage.path;
+    var profileImageExt  = req.files.profileimage.extension;
+    var profileImageSize = req.files.profileimage.size;
     
     
     
 }else{
-    var profileOriginalName = 'noimage.png';
+  //  var profileOriginalName = 'noimage.png';
 }
+
+//Form Validation
+req.checkBody('name','Name feild is required').notEmpty();
+req.checkBody('email','Email feild is required').notEmpty();
+req.checkBody('email','Name not valid').isEmail();
+req.checkBody('username','Name feild is required').notEmpty();
+req.checkBody('password','Name feild is required').notEmpty();
+req.checkBody('repassword','Name feild is required').notEmpty();
+
+    var errors = req.validationErrors();
+    if(errors){
+        res.render('register',{
+            errors:errors,
+            name:name,
+            email:email,
+            username:username,
+            password:password,
+            repassword:repassword
+        });
+    } else {
+        var newUser = new User({
+            name:name,
+            email:email,
+            username:username,
+            password:password,
+            profileimage: profileImageName
+        
+        });
+        //Create User
+        /*User.createUser(newUser,function(err,user){
+            console.log(user);
+        });*/
+        
+        //Success message
+        req.flash('Success','You are now register');
+        res.location('/');
+        res.redirect('/');
+    }
+});
 
 module.exports = router;
